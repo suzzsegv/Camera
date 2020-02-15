@@ -16,6 +16,7 @@ import android.widget.ZoomControls;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     // カメラ切り替え用フラグ
     private int currentCameraId;
 
+    // Bluetoothサーバ
+    private BluetoothServer mBluetoothServer;
+    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        mBluetoothServer = new BluetoothServer(this);
     }
 
     /**
@@ -137,6 +142,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     */
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            mBluetoothServer.start();
+        } catch (IOException e) {}
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mBluetoothServer.stop();
+    }
 
     @Override
     protected void onDestroy() {

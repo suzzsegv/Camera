@@ -1,4 +1,4 @@
-package com.example.bluetoothserver;
+package com.example.camera;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;

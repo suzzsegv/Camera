@@ -1,4 +1,4 @@
-package com.example.bluetoothserver;
+package com.example.camera;
 
 interface RemoteControlEventListener {
     void onCommandTakePicture();
