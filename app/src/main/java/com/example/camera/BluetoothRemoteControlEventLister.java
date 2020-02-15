@@ -5,16 +5,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 public class BluetoothRemoteControlEventLister implements RemoteControlEventListener {
-    private AppCompatActivity mActivity;
-    private Camera mCamera;
+    private MainActivity mActivity;
 
-    BluetoothRemoteControlEventLister(AppCompatActivity activity, Camera camera){
+    BluetoothRemoteControlEventLister(MainActivity activity){
         mActivity = activity;
-        mCamera = camera;
     }
 
     @Override
     public void onCommandTakePicture(){
+        mActivity.takePicture();
         Toast.makeText(mActivity, "Take Picture.", Toast.LENGTH_LONG).show();
     }
 

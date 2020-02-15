@@ -104,15 +104,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.buttonShutter).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mIsTake) {
-                    // 撮影中の2度押し禁止用フラグ
-                    mIsTake = true;
-//                        // 画像取得
-//                        mCam.takePicture(null, null, mPicJpgListener);
-
-                    //オートフォーカス
-                    mCam.autoFocus(mAutoFocusListener);
-                }
+                takePicture();
             }
         });
 
@@ -125,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mBluetoothServer = new BluetoothServer(this);
-        mBluetoothRemoteControlEventLister = new BluetoothRemoteControlEventLister(this, mCam);
+        mBluetoothRemoteControlEventLister = new BluetoothRemoteControlEventLister(this);
         mUiHandler = new Handler(Looper.getMainLooper());
         mBluetoothServer.setRemoteControlEventListener(mBluetoothRemoteControlEventLister, mUiHandler);
     }
@@ -295,5 +287,17 @@ public class MainActivity extends AppCompatActivity {
         */
 
         mCam.startPreview();
+    }
+
+    void takePicture() {
+        if (!mIsTake) {
+            // 撮影中の2度押し禁止用フラグ
+            mIsTake = true;
+//          // 画像取得
+//          mCam.takePicture(null, null, mPicJpgListener);
+
+            //オートフォーカス
+            mCam.autoFocus(mAutoFocusListener);
+        }
     }
 }
