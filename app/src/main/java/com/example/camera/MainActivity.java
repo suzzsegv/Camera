@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
     // Bluetoothサーバ
     private BluetoothServer mBluetoothServer;
-    
+    Handler mUiHandler;
+
+    // RemoteControl
+    BluetoothRemoteControlEventLister mBluetoothRemoteControlEventLister;
+
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,7 +123,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         mBluetoothServer = new BluetoothServer(this);
+        mBluetoothRemoteControlEventLister = new BluetoothRemoteControlEventLister(this, mCam);
+        mUiHandler = new Handler(Looper.getMainLooper());
+        mBluetoothServer.setRemoteControlEventListener(mBluetoothRemoteControlEventLister, mUiHandler);
     }
 
     /**
